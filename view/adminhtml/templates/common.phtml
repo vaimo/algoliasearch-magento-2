@@ -5,6 +5,8 @@
 /** @var \Algolia\AlgoliaSearch\ViewModel\Adminhtml\Common $viewModel */
 $viewModel = $this->getViewModel();
 
+$applicationId = $viewModel->getApplicationId();
+
 $isClickAnalyticsEnabled = true;
 $isQueryRulesEnabled = true;
 
@@ -37,6 +39,7 @@ $linksConfig = $viewModel->getLinksConfig($section);
 ?>
 
 <script>
+var applicationId = <?php echo json_encode($applicationId); ?>;
 var isClickAnalyticsEnabled = <?php echo json_encode($isClickAnalyticsEnabled); ?>;
 var isQueryRulesEnabled = <?php echo json_encode($isQueryRulesEnabled); ?>;
 var indexingQueueConfigUrl = <?php echo json_encode($indexingQueueConfigUrl); ?>;
@@ -218,6 +221,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				else {
 					$input.show();
 				}
+			}
+
+			// EVENTS TRACKING
+			function trackEvent(eventName, data) {
+				if (!navigator.sendBeacon) {
+					return;
+				}
+
+				data = data || {};
+
+				const postData = JSON.stringify({
+					appId: applicationId,
+					eventName: eventName,
+					data: data
+				});
+
+				navigator.sendBeacon('https://magento-proxy.algolia.com/event/', postData);
 			}
 		});
 	});
