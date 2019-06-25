@@ -239,6 +239,311 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 				navigator.sendBeacon('https://magento-proxy.algolia.com/event/', postData);
 			}
+
+			var eventsToTrack = [
+                {
+	                // Click on Analytics Overview in main menu
+                    selector: 'li[data-ui-id="menu-algolia-algoliasearch-analytics"] a',
+                    name: 'magento2.menu',
+                    data: {
+                        'name': 'Clicked Analytics'
+                    }
+                },
+				{
+					// Update dates on analytics overview page
+					selector: '#algolia-analytics-form button.algolia-daterange-submit',
+					name: 'magento2.analytics',
+					data: {
+						'name': 'Updated the Dates'
+					}
+				},
+				{
+					// Click on "See more popular searches"
+					selector: '.popular-searches .analytics-footer a',
+					name: 'magento2.analytics',
+					data: {
+						'name': 'Clicked for More Data'
+					}
+				},
+				{
+					// Click on "See more popular results"
+					selector: '.popular-results .analytics-footer a',
+					name: 'magento2.analytics',
+					data: {
+						'name': 'Clicked for More Results'
+					}
+				},
+				{
+					// Click on "See more no results searches"
+					selector: '.no-result-searches .analytics-footer a',
+					name: 'magento2.analytics',
+					data: {
+						'name': 'Clicked for More No Results'
+					}
+				},
+				{
+					// Click on "documentation" on analytics overview page
+					selector: '.algolia-analytics-overview-docs',
+					name: 'magento2.analytics',
+					data: {
+						'name': 'Clicked Documentation Link'
+					}
+				},
+				{
+					// Click on Help & Support in main menu
+					selector: 'li[data-ui-id="menu-algolia-algoliasearch-support"] a',
+					name: 'magento2.help',
+					data: {
+						'name': 'Clicked Help & Support'
+					}
+				},
+				{
+					// Click on Contact us on Help & Support page
+					selector: '.algolia-support-contact-us',
+					name: 'magento2.help.contact',
+					data: {
+						'name': 'Clicked Contact Us'
+					}
+				},
+				{
+					// Click on Upgrade plan on Help & Support page
+					selector: '.algolia-support-upgrade-plan',
+					name: 'magento2.help.upgrade',
+					data: {
+						'name': 'Clicked Plan Upgrade'
+					}
+				},
+				{
+					// Click on Merchandising in main menu
+					selector: 'li[data-ui-id="menu-algolia-algoliasearch-merchandising"] a',
+					name: 'magento2.menu',
+					data: {
+						'name': 'Clicked Merchandising'
+					}
+				},
+				{
+					// Click on Query Merchandiser on Merchandisign page
+					selector: '.algoliasearch-merchandising-options .query-merchandising a',
+					name: 'magento2.merchandisign',
+					data: {
+						'name': 'Clicked Query Merchandiser'
+					}
+				},
+				{
+					// Click on Category Merchandiser on Merchandisign page
+					selector: '.algoliasearch-merchandising-options .category-merchandising a',
+					name: 'magento2.merchandisign',
+					data: {
+						'name': 'Clicked Category Merchandiser'
+					}
+				},
+				{
+					// Click on Landing Page Builder on Merchandisign page
+					selector: '.algoliasearch-merchandising-options .landing-page-builder a',
+					name: 'magento2.merchandisign',
+					data: {
+						'name': 'Clicked Landing Page Builder'
+					}
+				},
+				{
+					// Click on "documentation" on query merchandiser overview page
+					selector: '.algolia-query-merchandiser-docs',
+					name: 'magento2.querymerch.listing',
+					data: {
+						'name': 'Clicked Documentation Link'
+					}
+				},
+				{
+					// Click on "Merchandise a new query" on query merchandiser overview page
+					selector: '.algolia-query-merchandiser-create',
+					name: 'magento2.querymerch.listing',
+					data: {
+						'name': 'Clicked Merchandise A New Query'
+					}
+				},
+				{
+					// Click on "Merchandise a new query" on query merchandiser overview page
+					selector: '.algolia-query-merchandiser-create, .algolia-algoliasearch-query-index #add',
+					name: 'magento2.querymerch.listing',
+					data: {
+						'name': 'Clicked Merchandise A New Query'
+					}
+				},
+				{
+					// Click on "Edit" on query merchandiser overview page
+					selector: '.algolia-algoliasearch-query-index a[data-action="item-edit"]',
+					name: 'magento2.querymerch.listing',
+					data: {
+						'name': 'Clicked Edit A Query'
+					}
+				},
+				{
+					// Click on "Delete" on query merchandiser overview page
+					selector: '.algolia-algoliasearch-query-index a[data-action="item-delete"]',
+					name: 'magento2.querymerch.listing',
+					data: {
+						'name': 'Deleted Query'
+					}
+				},
+				{
+					// Click on "View" on query merchandiser overview page
+					selector: '.algolia-algoliasearch-query-index a[data-action="item-view"]',
+					name: 'magento2.querymerch.listing',
+					data: {
+						'name': 'Viewed Query on the Store'
+					}
+				},
+				{
+					// Click on "Delete" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit #delete',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Deleted Query'
+					}
+				},
+				{
+					// Click on "View" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit #view',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Viewed Query on the Store'
+					}
+				},
+				{
+					// Click on "Save & Continue" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit #save_and_continue',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Saved Query And Stayed'
+					}
+				},
+				{
+					// Click on "Save" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit #save',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Saved Query'
+					}
+				},
+				{
+					// Click on "Pin product" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit .pinIt',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Pinned Product'
+					}
+				},
+				{
+					// Click on "Unpin product" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit .unpinIt',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Unpinned Product'
+					}
+				},
+				{
+					// Click on "Arrow up" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit .arrow.up',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Promoted Product'
+					}
+				},
+				{
+					// Click on "Arrow down" on query merchandiser edit page
+					selector: '.algolia-algoliasearch-query-edit .arrow.down',
+					name: 'magento2.querymerch.edit',
+					data: {
+						'name': 'Demoted Product'
+					}
+				},
+				{
+					// Click on "Create New Landing Page" on landing page builder overview page
+					selector: 'algolia-landing-page-builder-create, .algolia-algoliasearch-landingpage-index #add',
+					name: 'magento2.landing.listing',
+					data: {
+						'name': 'Clicked Create New Landing Page'
+					}
+				},
+				{
+					// Click on "Edit" on landing page builder overview page
+					selector: '.algolia-algoliasearch-landingpage-index a[data-action="item-edit"]',
+					name: 'magento2.landing.listing',
+					data: {
+						'name': 'Clicked Edit Page'
+					}
+				},
+				{
+					// Click on "Delete" on landing page builder overview page
+					selector: '.algolia-algoliasearch-landingpage-index a[data-action="item-delete"]',
+					name: 'magento2.landing.listing',
+					data: {
+						'name': 'Clicked Delete Page'
+					}
+				},
+				{
+					// Click on "View" on landing page builder overview page
+					selector: '.algolia-algoliasearch-landingpage-index a[data-action="item-view"]',
+					name: 'magento2.landing.listing',
+					data: {
+						'name': 'Viewed a page on the store'
+					}
+				},
+				{
+					// Click on "Duplicate" on landing page builder overview page
+					selector: '.algolia-algoliasearch-landingpage-index a[data-action="item-duplicate"]',
+					name: 'magento2.landing.listing',
+					data: {
+						'name': 'Duplicated a page'
+					}
+				},
+				{
+					// Click on "Delete" on landing page builder edit page
+					selector: '.algolia-algoliasearch-landingpage-edit #delete',
+					name: 'magento2.landing.edit',
+					data: {
+						'name': 'Deleted Page'
+					}
+				},
+				{
+					// Click on "View" on landing page builder edit page
+					selector: '.algolia-algoliasearch-landingpage-edit #view',
+					name: 'magento2.landing.edit',
+					data: {
+						'name': 'Viewed a page on the store'
+					}
+				},
+				{
+					// Click on "Duplicate" on landing page builder edit page
+					selector: '.algolia-algoliasearch-landingpage-edit #duplicate',
+					name: 'magento2.landing.edit',
+					data: {
+						'name': 'Duplicated a page'
+					}
+				},
+				{
+					// Click on "Save" on landing page builder edit page
+					selector: '.algolia-algoliasearch-landingpage-edit #save',
+					name: 'magento2.landing.edit',
+					data: {
+						'name': 'Saved page'
+					}
+				},
+				{
+					// Click on "Save & Continue" on landing page builder edit page
+					selector: '.algolia-algoliasearch-landingpage-edit #save_and_continue',
+					name: 'magento2.landing.edit',
+					data: {
+						'name': 'Saved page and stayed'
+					}
+				}
+            ];
+
+            eventsToTrack.forEach(function(event) {
+                $(event.selector).click(function() {
+                    trackEvent(event.name, event.data);
+                });
+            });
 		});
 	});
 

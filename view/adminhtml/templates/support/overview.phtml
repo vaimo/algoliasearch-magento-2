@@ -234,9 +234,9 @@ $videoFeatures = $this->getViewFileUrl('Algolia_AlgoliaSearch::images/video-feat
 <div class="contact-us">
     <?php if ($view->isExtensionSupportEnabled()): ?>
         Didn't find what you were looking for?
-        <a href="<?php echo $this->getUrl('*/*/contact'); ?>">Contact us</a>.
+        <a href="<?php echo $this->getUrl('*/*/contact'); ?>" class="algolia-support-contact-us">Contact us</a>.
     <?php else: ?>
-        Consider <a href="https://www.algolia.com/apps/<?php echo $view->getApplicationId(); ?>/billing/overview" target="_blank">updating your plan</a>
+        Consider <a href="https://www.algolia.com/apps/<?php echo $view->getApplicationId(); ?>/billing/overview" class="algolia-support-upgrade-plan" target="_blank">updating your plan</a>
         to get direct and fast email help by Algolia experts.
     <?php endif; ?>
 </div>
