@@ -213,9 +213,9 @@ class CategoryHelper
             throw new CategoryEmptyException();
         }
 
-        if ($this->configHelper->showCatsNotIncludedInNavigation($storeId) === false && !$category->getIncludeInMenu()) {
+       /* if ($this->configHelper->showCatsNotIncludedInNavigation($storeId) === false && !$category->getIncludeInMenu()) {
             throw new CategoryNotIncludedInMenuException();
-        }
+        } */
 
         return true;
     }
@@ -293,7 +293,7 @@ class CategoryHelper
             'path' => $path,
             'level' => $category->getLevel(),
             'url' => $this->getUrl($category),
-            'include_in_menu' => $category->getIncludeInMenu(),
+            'include_in_menu' => 1,//$category->getIncludeInMenu(),
             '_tags' => ['category'],
             'popularity' => 1,
             'product_count' => $category->getProductCount(),
@@ -515,7 +515,7 @@ class CategoryHelper
             ->addNameToResult()
             ->addIsActiveFilter()
             ->addAttributeToSelect('name')
-            ->addAttributeToFilter('include_in_menu', '1')
+            //->addAttributeToFilter('include_in_menu', '1')
             ->addAttributeToFilter('level', ['gt' => 1]);
 
         $this->coreCategories = [];
