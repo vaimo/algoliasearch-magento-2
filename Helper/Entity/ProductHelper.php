@@ -1126,12 +1126,33 @@ class ProductHelper
         }
 
         if (!$this->configHelper->getShowOutOfStock($storeId)) {
-            $stockItem = $this->stockRegistry->getStockItem($product->getId());
-            if (! $stockItem->getIsInStock()) {
-                throw (new ProductOutOfStockException())
-                    ->withProduct($product)
-                    ->withStoreId($storeId);
+            // Added fix to remove Configurable from indexing if childs are oos
+            if($product->getTypeId() == 'configurable') {
+                $typeInstance = $product->getTypeInstance();
+                $subProducts = $typeInstance->getUsedProducts($product);
+                $totalQty = 0;
+                foreach ($subProducts as $child) {
+                    $stockItem = $this->stockRegistry->getStockItem($child->getId());
+                    if ($stockItem) {
+                        $totalQty += (int)$stockItem->getQty();
+                    }
+                }
+                if ($totalQty == 0) {
+
+                    throw (new ProductOutOfStockException())
+                        ->withProduct($product)
+                        ->withStoreId($storeId);
+                }
+            }else
+            {
+                $stockItem = $this->stockRegistry->getStockItem($product->getId());
+                if (! $stockItem->getIsInStock()) {
+                    throw (new ProductOutOfStockException())
+                        ->withProduct($product)
+                        ->withStoreId($storeId);
+                }
             }
+
         }
 
         return true;
