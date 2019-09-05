@@ -1155,6 +1155,24 @@ class ProductHelper
 
         }
 
+        if($product->getTypeId() == 'configurable') {
+            $typeInstance = $product->getTypeInstance();
+            $subProducts = $typeInstance->getUsedProducts($product);
+            $disabledStatus = 0;
+            $totalChilds = 0;
+            foreach ($subProducts as $child) {
+                if ($child->getStatus() == Status::STATUS_DISABLED) {
+                    $disabledStatus ++;
+                }
+                $totalChilds++;
+            }
+
+            if($disabledStatus == $totalChilds){
+                throw (new ProductDisabledException())
+                    ->withProduct($product)
+                    ->withStoreId($storeId);
+            }
+        }
         return true;
     }
 }
